@@ -13,3 +13,4 @@ class AppVersion(models.Model):
     version = models.SmallIntegerField(default=0)
     subversion = models.SmallIntegerField(default=0)
     download_url = models.URLField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)

@@ -28,8 +28,8 @@ class DeviceService(JsonApiController):
                 token=device_id, device_type=device_type,
                 os=os, os_version=os_version)
         else:
-            device = devies[0]
-            Device.objects.filter(token=device_id).udpate(
+            device = devices[0]
+            Device.objects.filter(token=device_id).update(
                 device_type=device_type, os=os, os_version=os_version)
         app.devices.add(device)
 

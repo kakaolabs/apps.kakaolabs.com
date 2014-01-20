@@ -11,5 +11,7 @@ class App(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     image_url = models.URLField(null=True, blank=True)
-    devices = models.ManyToManyField('Device', blank=True)
     app_secret = models.CharField(max_length=60, default=utils.generate_uuid)
+    devices = models.ManyToManyField('Device', blank=True)
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
+
