@@ -1,6 +1,6 @@
 import functools
 
-from .serializer import Serializer
+from .new_serializer import Serializer
 
 def serializer(fields=None):
     def _decl(func):

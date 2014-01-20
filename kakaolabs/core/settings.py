@@ -125,6 +125,7 @@ INSTALLED_APPS = (
 
     # kakaolabs apps
     'core',
+    'sms',
 )
 
 
