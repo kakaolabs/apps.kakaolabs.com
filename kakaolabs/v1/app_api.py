@@ -12,11 +12,10 @@ class AppsService(JsonApiController):
         'pk',
         'name',
         'description',
-        'image_url'
+        'image_url',
     )
 
     @serializer(fields)
     def get_related(self, *args, **kwargs):
-        os = int(self.get_parameter('os', is_mandatory=True))
-        apps = App.objects.filter(member=request.user, os=os)
+        apps = App.objects.filter(member=self.request.user)
         return apps

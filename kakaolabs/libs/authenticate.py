@@ -29,6 +29,7 @@ class SignatureAuthenticate(BaseAuthenticate):
         sha.update(message.encode('utf8'))
         expected_signature = sha.hexdigest()
 
+        if (api_sig == expected_signature):
+            request.user = member
+
         return api_sig == expected_signature
-
-

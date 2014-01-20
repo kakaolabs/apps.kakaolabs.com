@@ -14,4 +14,3 @@ class App(models.Model):
     app_secret = models.CharField(max_length=60, default=utils.generate_uuid)
     devices = models.ManyToManyField('Device', blank=True)
     created = models.DateTimeField(auto_now_add=True, db_index=True)
-
