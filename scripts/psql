@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+case $1 in
+    local)
+        psql -h localhost -d kakaolabs
+        ;;
+    *)
+        echo 'psql {local}'
+        ;;
+esac

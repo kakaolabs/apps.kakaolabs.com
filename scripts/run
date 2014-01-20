@@ -1,0 +1,73 @@
+#!/usr/bin/env sh
+# load virtualenv
+. venv/bin/activate
+
+# load environment
+# sample file is .env.sample
+. .env
+
+load_environment() {
+    lunchy start postgres
+}
+
+run_server() {
+    export DATABASE_URL=postgres://knt:@localhost/kakaolabs
+    case $1 in
+        uwsgi)
+            uwsgi --ini uwsgi.ini --http-socket 0.0.0.0:$PORT --virtualenv venv
+            ;;
+        *)
+            python kakaolabs/manage.py runserver 0.0.0.0:$PORT
+            ;;
+    esac
+}
+
+run_compass_watch() {
+    compass watch --sass-dir=kakaolabs/static/sass/ --css-dir=kakaolabs/static/css/ --output-style compressed --force
+}
+
+run_compass_compile() {
+    compass compile --sass-dir=kakaolabs/static/sass/ --css-dir=kakaolabs/static/css/ --output-style compressed --force
+}
+
+run_coffee_watch() {
+    coffee -o kakaolabs/static/scripts -cw kakaolabs/static/coffee
+}
+
+case $1 in
+    server)
+        run_server $2
+        ;;
+    worker)
+        run_worker
+        ;;
+    compass)
+        case $2 in
+            watch)
+                run_compass_watch
+                ;;
+            compile)
+                run_compass_compile
+                ;;
+            *)
+                echo "run compass {watch|compile}"
+                ;;
+        esac
+        ;;
+    coffee)
+        case $2 in
+            watch)
+                run_coffee_watch
+                ;;
+            *)
+                echo "run coffee {watch}"
+                ;;
+        esac
+        ;;
+    load_env)
+        load_environment
+        ;;
+    *)
+        echo "run {load_env|compass|coffee|server}"
+        ;;
+esac
