@@ -14,3 +14,11 @@ class App(models.Model):
     app_secret = models.CharField(max_length=60, default=utils.generate_uuid)
     devices = models.ManyToManyField('Device', blank=True)
     created = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    @property
+    def newest_version(self):
+        from .appversion_model import AppVersion
+        if self.versions.count():
+            return self.versions.order_by('-version', '-subversion')[0]
+        else:
+            return {}

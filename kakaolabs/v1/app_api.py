@@ -19,3 +19,13 @@ class AppsService(JsonApiController):
     def get_related(self, *args, **kwargs):
         apps = App.objects.filter(member=self.request.user)
         return apps
+
+
+class AppService(JsonApiController):
+    authenticate_class = SignatureAuthenticate
+
+    @serializer(('is_force_update', 'version', 'subversion', 'download_url'))
+    def get_version(self, app_secret):
+        app = App.objects.get(app_secret=app_secret)
+        version = app.newest_version
+        return version
