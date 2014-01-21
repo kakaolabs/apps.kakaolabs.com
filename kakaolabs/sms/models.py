@@ -18,6 +18,9 @@ class Category(models.Model):
     def data(self):
         return self.children
 
+    def __unicode__(self):
+        return self.name
+
 
 class SMSContent(models.Model):
     category = models.ForeignKey('Category', related_name='sms')
