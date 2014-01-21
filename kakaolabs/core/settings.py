@@ -11,7 +11,7 @@ host_type = os.getenv('HOST_TYPE')
 if host_type == 'PRODUCTION':
     config_filepath = 'kakaolabs/config/production.ini'
 elif host_type == 'STAGING':
-    config_filepath = 'kakaolabs/config/stage.ini'
+    config_filepath = 'kakaolabs/config/staging.ini'
 elif host_type == 'LOCALHOST':
     config_filepath = 'kakaolabs/config/localhost.ini'
 config.read(config_filepath)
