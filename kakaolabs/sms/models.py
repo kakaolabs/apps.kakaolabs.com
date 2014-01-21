@@ -11,7 +11,7 @@ class Category(models.Model):
 
     name = models.CharField(max_length=200, db_index=True)
     type = models.SmallIntegerField(choices=CATEGORY_TYPE_CHOICES, default=SUBCATEGORY, db_index=True)
-    parent = models.ForeignKey('Category', null=True, related_name='children')
+    parent = models.ForeignKey('Category', null=True, blank=True, related_name='children')
     created = models.DateTimeField(auto_now_add=True, db_index=True)
 
     @property
