@@ -7,6 +7,7 @@ from kakaolabs.core import models
 
 class AppAdmin(admin.ModelAdmin):
     raw_id_fields = ('member', 'devices')
+    list_display = ('member', 'name', 'description')
 
 
 class MemberAdmin(admin.ModelAdmin):

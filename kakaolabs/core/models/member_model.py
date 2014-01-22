@@ -58,3 +58,6 @@ class Member(AbstractBaseUser):
     @property
     def is_superuser(self):
         return self.is_admin
+
+    def __unicode__(self):
+        return self.username

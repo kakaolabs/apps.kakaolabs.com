@@ -22,3 +22,6 @@ class App(models.Model):
             return self.versions.order_by('-version', '-subversion')[0]
         else:
             return {}
+
+    def __unicode__(self):
+        return self.name
