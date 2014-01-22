@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+connect() {
+    case $1 in
+        vagrant)
+            export REDIS_HOST=192.22.88.101
+            export REDIS_PORT=6379
+            export REDIS_PASSWORD=dc0bc8de869d43fea02a0c0d1b7cbf93
+            redis-cli -h $REDIS_HOST -p $REDIS_PORT -a $REDIS_PASSWORD
+            ;;
+        local)
+            redis-cli
+            ;;
+        *)
+            echo 'redis connect {local|vagrant}'
+            ;;
+    esac
+}
+
+monitor() {
+    export LINE_NUMBER=2000
+    case $1 in
+        stage)
+            export REDIS_HOST=pub-redis-17408.us-east-1-3.2.ec2.garantiadata.com
+            export REDIS_PORT=17408
+            export REDIS_PASSWORD=6YUCi7doqKvz4uWq
+            redis-cli -h $REDIS_HOST -p $REDIS_PORT -a $REDIS_PASSWORD MONITOR | head -n $LINE_NUMBER | redis-faina
+            ;;
+        prod)
+            export REDIS_HOST=pub-redis-18407.us-east-1-2.3.ec2.garantiadata.com
+            export REDIS_PORT=18407
+            export REDIS_PASSWORD=Gg4CoqDbgjHRC1cz
+            redis-cli -h $REDIS_HOST -p $REDIS_PORT -a $REDIS_PASSWORD MONITOR | head -n $LINE_NUMBER | redis-faina
+            ;;
+        ec2)
+            export REDIS_HOST=ec2-54-225-79-156.compute-1.amazonaws.com
+            export REDIS_PORT=22001
+            export REDIS_PASSWORD=e32079272de74481bf9882afaea5956854616a7f34f54c4e8eb36084ff24e30d
+            redis-cli -h $REDIS_HOST -p $REDIS_PORT -a $REDIS_PASSWORD MONIOR | head -n $LINE_NUMBER | redis-faina
+            ;;
+        local)
+            redis-cli MONITOR | head -n $LINE_NUMBER | redis-faina
+            ;;
+        *)
+            echo 'redis monitor {ec2|local|stage|prod}'
+            ;;
+    esac
+}
+
+
+case $1 in
+    connect)
+        connect $2
+        ;;
+    monitor)
+        monitor $2
+        ;;
+    *)
+        echo "USAGE redis {connect|monitor}"
+        ;;
+esac
