@@ -17,6 +17,7 @@ class Command(BaseCommand):
     def insert_data_to_category(self, category):
         eng_name = language.convert_vietnamese_to_english(category.name)
         normalize_name = eng_name.replace(" ", "-")
+        normalize_name = "%s%s" % (normalize_name[0], normalize_name[1:])
         filepath = "databases/sms/%s" % normalize_name
         reader = DataReader(filepath)
         reader.parse()
