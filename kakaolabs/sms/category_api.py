@@ -9,10 +9,10 @@ class CategoriesService(RestfulApiController):
     authenticate_class = SignatureAuthenticate
 
     fields = (
-        'pk',
+        'id',
         'name',
         'type',
-        ('data', ('pk', 'name', 'type')),
+        ('data', ('id', 'name', 'type')),
     )
 
     @serializer(fields)
@@ -25,12 +25,12 @@ class SubcategoryService(RestfulApiController):
     authenticate_class = SignatureAuthenticate
 
     fields = (
-        'pk',
+        'id',
         'content',
         'votes',
     )
 
     @serializer(fields)
     def get(self, category_id):
-        data = SMSContent.objects.filter(category__pk=category_id).order_by('votes')
+        data = SMSContent.objects.filter(category__pk=category_id)
         return data

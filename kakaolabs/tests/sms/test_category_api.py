@@ -25,11 +25,11 @@ class TestCategory(FastFixtureTestCase):
 
         self.assertEqual(1, len(data))
         cate = data[0]
-        self.assertEqual(sorted(['pk', 'name', 'type', 'data']), sorted(cate.keys()))
+        self.assertEqual(sorted(['id', 'name', 'type', 'data']), sorted(cate.keys()))
         subcates = cate['data']
         self.assertEqual(5, len(subcates))
         for item in subcates:
-            self.assertEqual(sorted(['pk', 'name', 'type']), sorted(item.keys()))
+            self.assertEqual(sorted(['id', 'name', 'type']), sorted(item.keys()))
 
 
 class TestSubCategory(FastFixtureTestCase):
@@ -50,5 +50,5 @@ class TestSubCategory(FastFixtureTestCase):
 
         self.assertEqual(5, len(data))
         for item in data:
-            self.assertEqual(sorted(['pk', 'content', 'votes']), sorted(item.keys()))
+            self.assertEqual(sorted(['id', 'content', 'votes']), sorted(item.keys()))
 
