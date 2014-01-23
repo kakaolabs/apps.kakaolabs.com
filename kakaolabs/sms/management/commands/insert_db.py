@@ -33,7 +33,7 @@ class Command(BaseCommand):
         CATEGORIES = [
             "bạn bè", "buổi sáng", "chọc phá", "chúc mừng 20-10",
             "chúc mừng 8-3", "chúc mừng năm mới",
-            "chúc mừng sinh nhât", "chúc ngủ ngon", "doạ ma",
+            "chúc mừng sinh nhật", "chúc ngủ ngon", "doạ ma",
             "giáng sinh", "hài hước", "làm quen", "tình yêu",
             "tỏ tình", "trung thu", "valentine", "xin lỗi"]
 

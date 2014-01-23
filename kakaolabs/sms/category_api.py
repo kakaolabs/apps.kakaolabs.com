@@ -17,7 +17,7 @@ class CategoriesService(RestfulApiController):
 
     @serializer(fields)
     def get(self, *args, **kwargs):
-        categories = Category.objects.filter(type=Category.CATEGORY)
+        categories = Category.objects.filter(parent=None)
         return categories
 
 

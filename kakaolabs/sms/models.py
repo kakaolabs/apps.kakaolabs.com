@@ -21,7 +21,10 @@ class Category(models.Model):
 
     @property
     def data(self):
-        return self.children
+        if self.type == Category.CATEGORY:
+            return self.children
+        else:
+            return []
 
     def __unicode__(self):
         return self.name

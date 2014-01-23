@@ -40,5 +40,3 @@ class TestDataReader(unittest.TestCase):
         self.assertEquals(
             sorted(smscontents),
             sorted(reader.contents[category_name]))
-
-
