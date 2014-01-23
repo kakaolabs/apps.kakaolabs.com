@@ -9,6 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
     raw_id_fields = ('parent', )
     list_display = ('parent', 'name', 'type')
     search_fields = ('name', )
+    list_filter = ('type', )
 
 
 class SMSContentAdmin(admin.ModelAdmin):

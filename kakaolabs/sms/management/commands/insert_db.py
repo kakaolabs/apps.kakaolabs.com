@@ -3,6 +3,7 @@
 from django.core.management.base import BaseCommand
 
 from libs import language
+from libs.sms.data_reader import DataReader
 from sms.models import Category, SMSContent
 
 
@@ -13,11 +14,18 @@ class Command(BaseCommand):
         Category.objects.all().delete()
         SMSContent.objects.all().delete()
 
-    def insert_data_to_category(self, name):
-        eng_name = language.convert_vietnamese_to_english(name)
+    def insert_data_to_category(self, category):
+        eng_name = language.convert_vietnamese_to_english(category.name)
         normalize_name = eng_name.replace(" ", "-")
         filepath = "databases/sms/%s" % normalize_name
-        print filepath
+        reader = DataReader(filepath)
+        reader.parse()
+        for name, data in reader.contents.iteritems():
+            sub_category = Category.objects.create(
+                    parent=category, name=name, type=Category.SUBCATEGORY)
+            for item in data:
+                SMSContent.objects.create(category=sub_category, content=item)
+
 
     def insert_data(self):
         CATEGORIES = [
@@ -29,8 +37,8 @@ class Command(BaseCommand):
 
         for item in CATEGORIES:
             category_name = "%s%s" % (item[0].upper(), item[1:])
-            Category.objects.create(name=category_name, type=Category.CATEGORY)
-            self.insert_data_to_category(item)
+            category = Category.objects.create(name=category_name, type=Category.CATEGORY)
+            self.insert_data_to_category(category)
 
     def handle(self, *args, **options):
         self.clear_data()
