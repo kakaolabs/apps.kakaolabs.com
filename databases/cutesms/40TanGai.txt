@@ -1,0 +1,4 @@
+Tu ngu bat dau bang ABC.
+So dem bat dau bang 123.
+Am nhac bat dau bang Do, Re, Mi. 
+Tinh yeu bat dau bang anh va em!

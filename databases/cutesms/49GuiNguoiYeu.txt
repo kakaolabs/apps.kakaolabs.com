@@ -1,0 +1,5 @@
+Co 1 lan Chua hien len va hoi anh
+"Neu phai cho giua 1 nguoi yeu hoan hao va $1000000000,
+con se chon gi?"
+"anh tra loi anh chon $1000000000"
+vi anh da co em la nguoi yeu hoan hao , can them lam gi ?

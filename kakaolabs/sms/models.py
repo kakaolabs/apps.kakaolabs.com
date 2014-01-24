@@ -10,6 +10,7 @@ class Category(models.Model):
     )
 
     name = models.CharField(max_length=200, db_index=True)
+    image_url = models.URLField(default='http://static.appota.com/uploads/icon/112013/thumbs/icon6.png')
     type = models.SmallIntegerField(choices=CATEGORY_TYPE_CHOICES, default=SUBCATEGORY, db_index=True)
     parent = models.ForeignKey('Category', null=True, blank=True, related_name='children')
     index = models.IntegerField(default=0, db_index=True)
