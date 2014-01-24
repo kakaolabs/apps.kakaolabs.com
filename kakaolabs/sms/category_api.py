@@ -11,12 +11,16 @@ class CategoriesService(RestfulApiController):
     fields = (
         'id',
         'name',
+        'image_url',
+        'index',
         'type',
-        ('data', ('id', 'name', 'type')),
+        ('data', ('id', 'name', 'type', 'image_url', 'index')),
     )
 
     @serializer(fields)
     def get(self, *args, **kwargs):
+        epoch_time = self.get_parameter('time', is_mandatory=True)
+
         categories = Category.objects.filter(parent=None)
         return categories
 
@@ -27,10 +31,18 @@ class SubcategoryService(RestfulApiController):
     fields = (
         'id',
         'content',
+        'index',
         'votes',
     )
 
     @serializer(fields)
     def get(self, category_id):
-        data = SMSContent.objects.filter(category__pk=category_id)
+        epoch_time = self.get_parameter('time', is_mandatory=True)
+        size = int(self.get_parameter('size', default_value=50))
+        offset = int(self.get_parameter('offset', default_value=0))
+
+        data_size = SMSContent.objects.filter(category__pk=category_id).count()
+        min_index = min(offset, data_size)
+        max_index = min(offset + size, data_size)
+        data = SMSContent.objects.filter(category__pk=category_id)[min_index:max_index]
         return data
