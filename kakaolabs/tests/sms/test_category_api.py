@@ -1,4 +1,5 @@
 import json
+import time
 
 from django_nose.testcases import FastFixtureTestCase
 
@@ -19,7 +20,9 @@ class TestCategory(FastFixtureTestCase):
             Category.objects.create(
                 name='subtest-%s' % i, type=Category.SUBCATEGORY, parent=cat)
 
-        res = self.client.get('/sms/v1/categories/')
+        res = self.client.get('/sms/v1/categories/', params={
+            'time': int(time.time())
+        })
         self.assertEquals(200, res.status_code)
         data = json.loads(res.content)
 
@@ -48,7 +51,9 @@ class TestSubCategory(FastFixtureTestCase):
             SMSContent.objects.create(
                 content='content-%i' % i, votes=i, category=cat)
 
-        res = self.client.get('/sms/v1/subcategory/%s/' % cat.pk)
+        res = self.client.get('/sms/v1/subcategory/%s/' % cat.pk, params={
+                'time': int(time.time())
+            })
         self.assertEquals(200, res.status_code)
         data = json.loads(res.content)
 
@@ -57,4 +62,3 @@ class TestSubCategory(FastFixtureTestCase):
             self.assertEqual(
                 sorted(['id', 'content', 'votes', 'index']),
                 sorted(item.keys()))
-
