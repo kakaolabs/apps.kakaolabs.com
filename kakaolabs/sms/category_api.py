@@ -21,7 +21,7 @@ class CategoriesService(RestfulApiController):
     def get(self, *args, **kwargs):
         epoch_time = self.get_argument('time', is_mandatory=True)
 
-        categories = Category.objects.filter(parent=None)
+        categories = Category.objects.filter(parent=None).order_by('index', 'name')
         return categories
 
 
@@ -44,5 +44,5 @@ class SubcategoryService(RestfulApiController):
         data_size = SMSContent.objects.filter(category__pk=category_id).count()
         min_index = min(offset, data_size)
         max_index = min(offset + size, data_size)
-        data = SMSContent.objects.filter(category__pk=category_id)[min_index:max_index]
+        data = SMSContent.objects.filter(category__pk=category_id).order_by('index', 'content')[min_index:max_index]
         return data
