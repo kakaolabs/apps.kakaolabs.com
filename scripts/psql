@@ -3,7 +3,11 @@ case $1 in
     local)
         psql -h localhost -d kakaolabs
         ;;
+    heroku)
+        #postgres://hltmhvoanvuaeh:Fk_VahoedFaFmfMwf-i2QLYIKX@ec2-54-225-102-235.compute-1.amazonaws.com:5432/dc8uca3qj8ftss
+        PGPASSWORD=Fk_VahoedFaFmfMwf-i2QLYIKX psql -h ec2-54-225-102-235.compute-1.amazonaws.com -d dc8uca3qj8ftss -p 5342 -U hltmhvoanvuaeh
+        ;;
     *)
-        echo 'psql {local}'
+        echo 'psql {local|heroku}'
         ;;
 esac

@@ -38,7 +38,7 @@ class SubcategoryService(RestfulApiController):
     @serializer(fields)
     def get(self, category_id):
         epoch_time = self.get_argument('time', is_mandatory=True)
-        size = int(self.get_argument('size', default_value=50))
+        size = int(self.get_argument('size', default_value=500))
         offset = int(self.get_argument('offset', default_value=0))
 
         data_size = SMSContent.objects.filter(category__pk=category_id).count()
